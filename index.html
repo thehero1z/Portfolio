@@ -246,7 +246,7 @@
         </div>
       </div>
 
-      <form action="forms/contact.php" method="post" role="form" class="php-email-form mt-4">
+      <form action="submit-to-google-sheet" method="post" role="form" class="php-email-form mt-4" name="submit-to-google-sheet">
         <div class="row">
           <div class="col-md-6 form-group">
             <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -264,7 +264,8 @@
         <div class="my-3">
           <div class="loading">Loading</div>
           <div class="error-message"></div>
-          <div class="sent-message">Your message has been sent. Thank you!</div>
+          <div class="sent-message" >Your message has been sent. Thank you!</div>
+          <span id="msg" ></span>
         </div>
         <div class="text-center"><button type="submit">Send Message</button></div>
       </form>
@@ -284,6 +285,24 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzXpLrItDBYjLT9mFJI2V_8ssmKngd2DpKb-E8_RbWEYbUIosMs5QTjm8mrHe8-V6APWA/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const msg = document.getElementById("msg")
+
+form.addEventListener('submit', e => {
+  e.preventDefault()
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => {
+      msg.innerHTML ="Your message has been sent. Thank you!"
+      setTimeout(function(){
+        msg.innerHTML= ""
+    },5000)
+    form.reset()
+  })
+    .catch(error => console.error('Error!', error.message))
+})
+  </script>
 
 </body>
 </html>
