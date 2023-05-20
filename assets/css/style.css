@@ -18,7 +18,8 @@ body {
 body::before {
   content: "";
   position: fixed;
-  background: rgba(255, 255, 255, 0.12) url("../img/bg11.png") center;
+  /* background: rgba(255, 255, 255, 0.12) url("../img/bg11.png") center; */
+  background: #0e1420;
   background-size: cover;
   left: 0;
   right: 0;
